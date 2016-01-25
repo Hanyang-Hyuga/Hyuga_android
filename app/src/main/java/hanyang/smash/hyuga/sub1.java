@@ -14,7 +14,7 @@ public class sub1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View sub1 = inflater.inflate(R.layout.activity_sub_activity1, container, false);
-        return sub1;
+        return inflater.inflate(R.layout.activity_sub_activity1, container, false);
+
     }
 }

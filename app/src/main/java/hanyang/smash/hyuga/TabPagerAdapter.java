@@ -1,14 +1,14 @@
 package hanyang.smash.hyuga;
 
-import android.app.FragmentManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 /**
  * Created by JEEWOOYOON on 2016. 1. 25..
  */
-public class TapPageAdpater extends FragmentStatePagerAdapter{
-    public TapPageAdpater(FragmentManager fm) {
+public class TabPagerAdapter extends FragmentStatePagerAdapter{
+    public TabPagerAdapter(FragmentManager fm) {
         super(fm);
         // TODO Auto-generated constructor stub
     }

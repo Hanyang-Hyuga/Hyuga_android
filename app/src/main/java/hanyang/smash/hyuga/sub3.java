@@ -13,7 +13,7 @@ public class sub3 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View sub3 = inflater.inflate(R.layout.activity_sub_activity3, container, false);
-        return sub3;
+        return inflater.inflate(R.layout.activity_sub_activity3, container, false);
+
     }
 }
