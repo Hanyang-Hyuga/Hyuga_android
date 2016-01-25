@@ -1,5 +1,6 @@
 package hanyang.smash.hyuga;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -28,23 +29,33 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.Buffer;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by nayunhwan on 16. 1. 24..
  */
 public class CustomAdapter extends BaseAdapter {
+    private Activity activity;
+    private LayoutInflater inflater;
+    private Context mContext = null;
 
     ImageView imgView;
 
-    private ArrayList<String> m_list;
+    private ArrayList<String[]> m_list;
 //    ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 
     public CustomAdapter() {
-        m_list = new ArrayList<String>();
+        m_list = new ArrayList<String[]>();
     }
 
-    public void add(String input) {
-        m_list.add(input);
+    public void add(String title, String thumbnail_url, String price) {
+        String data[] = {title, thumbnail_url, price};
+        m_list.add(data);
+    }
+
+    public void add(String title, String thumbnail_url) {
+        String data[] = {title, thumbnail_url};
+        m_list.add(data);
     }
 
     @Override
@@ -53,7 +64,7 @@ public class CustomAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Object[] getItem(int position) {
         return m_list.get(position);
     }
 
@@ -65,40 +76,28 @@ public class CustomAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final Context context = parent.getContext();
-
+//        if (inflater == null)
+//            inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
+
+
+
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_item, parent, false);
+
+            TextView textView = (TextView) convertView.findViewById(R.id.textView);
+            textView.setText(getItem(position)[0].toString());
+
+            imgView = (ImageView) convertView.findViewById(R.id.imgView);
+
+            Log.d("TAG", "NA URL : " + getItem(position)[1]);
+            new LoadImageConnect().execute("http:" + getItem(position)[1]);
         }
 
-
-        TextView textView = (TextView) convertView.findViewById(R.id.textView);
-        textView.setText(getItem(position).toString());
-
-        imgView = (ImageView) convertView.findViewById(R.id.imgView);
-
-
-        new LoadImageConnect().execute("http://placehold.it/30x30");
         return convertView;
     }
 
-    //    public Bitmap getBitmapFromURL(String src) {
-//        HttpURLConnection connection = null;
-//        try {
-//            URL url = new URL(src);
-//            connection = (HttpURLConnection) url.openConnection();
-//            connection.setDoInput(true);
-//            connection.connect();
-//            InputStream input = connection.getInputStream();
-//            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-//            return myBitmap;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return null;
-//        }finally{
-//            if(connection!=null)connection.disconnect();
-//        }
-//    }
+
     // AsyncTask<Params,Progress,Result>
     private class LoadImageConnect extends AsyncTask<String, Void, Bitmap> {
 
@@ -106,6 +105,7 @@ public class CustomAdapter extends BaseAdapter {
         protected void onPreExecute() {
             super.onPreExecute();
         }
+
         @Override
         protected Bitmap doInBackground(String... params) {
             HttpURLConnection connection = null;
@@ -121,6 +121,7 @@ public class CustomAdapter extends BaseAdapter {
 //                return myBitmap;
 
                 URL url = new URL(params[0]);
+                Log.d("TAG", "NAYUNHWAN" + params[0]);
                 URLConnection conn = url.openConnection();
                 conn.connect();
                 BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
@@ -133,19 +134,18 @@ public class CustomAdapter extends BaseAdapter {
                 e.printStackTrace();
                 return null;
             } finally {
-                if(connection!=null)connection.disconnect();
+                if (connection != null) connection.disconnect();
             }
-    }
+        }
 
 
-    protected void onPostExecute(Bitmap result) {
+        protected void onPostExecute(Bitmap result) {
 //            Bitmap bitmap = result;
-        Log.d("TAG", "NAYUNHWAN postExecute");
-        imgView.setImageBitmap(result);
+            Log.d("TAG", "NAYUNHWAN postExecute");
+            imgView.setImageBitmap(result);
+        }
+
+
     }
-
-
-
-}
 
 }

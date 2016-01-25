@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     CustomAdapter mAdapter;
     ListView listView;
     Elements titles;
+    Elements thumbnails;
     Document doc;
     ProgressDialog mProgressDialog;
 
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 String url = "http://www.ssg.com/search.ssg?target=all&query=삼겹살";
                 doc = Jsoup.connect(url).userAgent("Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; fr) Presto/2.9.168 Version/11.52").get();
                 titles = doc.select("p.summary > a > span.subject");
+                thumbnails = doc.select("div.thumbnail > a > img");
 
             }
             catch (IOException e){
@@ -72,8 +74,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result){
 //            mAdapter.add("test3");
-            for(Element e : titles) {
-                mAdapter.add(e.text().toString());
+            for(int i = 0; i < titles.size(); i++) {
+                Log.d("TAG", "NA : " + titles.get(i).text().toString());
+                Log.d("TAG", "NA : " + thumbnails.get(i).attr("src").toString());
+                mAdapter.add(titles.get(i).text().toString(), thumbnails.get(i).attr("src"));
             }
             mAdapter.notifyDataSetChanged();
             mProgressDialog.dismiss();
