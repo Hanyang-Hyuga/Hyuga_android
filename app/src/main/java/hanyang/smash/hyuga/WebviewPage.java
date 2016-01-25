@@ -10,7 +10,7 @@ public class WebviewPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_webview);
+        setContentView(R.layout.activity_webview_page);
         web = (WebView) findViewById(R.id.webView);
     }
 }
