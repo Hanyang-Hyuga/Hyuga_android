@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="hanyang.smash.hyuga" >
+    package="hanyang.smash.hyuga">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -9,10 +9,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity android:name=".MainActivity" >
-        </activity>
-        <activity android:name=".Splash" >
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,20 +20,8 @@
         </activity>
         <activity
             android:name=".ViewPager"
-            android:label="@string/title_activity_view_pager" >
-        </activity>
-        <activity
-            android:name=".SubActivity1"
-            android:label="@string/title_activity_sub_activity1" >
-        </activity>
-        <activity
-            android:name=".SubActivity2"
-            android:label="@string/title_activity_sub_activity2" >
-        </activity>
-        <activity
-            android:name=".SubActivity3"
-            android:label="@string/title_activity_sub_activity3" >
-        </activity>
+            android:label="@string/title_activity_view_pager"></activity>
+        <activity android:name=".WebviewPage"></activity>
     </application>
 
 </manifest>
